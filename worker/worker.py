@@ -4,7 +4,7 @@ import redis.exceptions
 import os
 import time
 import signal
-
+import json
 
 REDIS_HOST = os.environ.get('REDIS_HOST')
 if not REDIS_HOST:
@@ -57,6 +57,7 @@ while run:
         continue
 
     queue, message = result
-    print(f'Imagen "{message}" procesada exitosamente', flush=True)
+    dict_data = json.loads(message)
+    print(f'Imagen "{dict_data['filename']}" procesada exitosamente', flush=True)
 
 print("Worker detenido.", flush=True)
